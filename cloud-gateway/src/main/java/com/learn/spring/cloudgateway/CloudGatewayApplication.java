@@ -14,16 +14,15 @@ import org.springframework.context.annotation.Bean;
  * */
 public class CloudGatewayApplication {
 
-        @Value("${baiduurl}")
-        String url;
-
+    @Value("${baiduurl}")
+    String url;
 
 //    @Value("${baiduurl}")
 //    String url;
 
     @Bean
     public RouteLocator baiduRouteLocator(RouteLocatorBuilder builder) {
-        String aa =url;
+        String aa = url;
         return builder.routes()
             .route("baidu", r -> r.path("/baidu*")
                 .uri(url)

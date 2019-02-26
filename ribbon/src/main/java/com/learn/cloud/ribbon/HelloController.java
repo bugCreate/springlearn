@@ -18,16 +18,17 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
     @Autowired
     HelloService helloService;
+
     @RequestMapping(value = "hi")
     @ResponseBody
-    public String hi(@RequestParam String name){
+    public String hi(@RequestParam String name) {
 
-        return "send message to "+helloService.hiService(name);
+        return "send message to " + helloService.hiService(name);
     }
 
     @RequestMapping(value = "test")
     @ResponseBody
-    public String test(){
+    public String test() {
 
         return "ok";
     }

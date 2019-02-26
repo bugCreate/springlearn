@@ -19,7 +19,7 @@ public class HelloService {
 
     public String hiService(String name) {
         System.out.println(name);
-        return restTemplate.getForObject("http://hello-server/test",String.class);
+        return restTemplate.getForObject("http://hello-server/test", String.class);
     }
 
 }
