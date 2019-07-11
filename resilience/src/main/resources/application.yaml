@@ -1,0 +1,74 @@
+resilience4j.circuitbreaker:
+  instances:
+    backendA:
+      registerHealthIndicator: true
+      ringBufferSizeInClosedState: 10
+      ringBufferSizeInHalfOpenState: 3
+      waitDurationInOpenState: 10s
+      failureRateThreshold: 5
+      eventConsumerBufferSize: 2
+      ignoreExceptions:
+        - io.github.resilience4j.ratelimiter.RequestNotPermitted
+    backendB:
+      registerHealthIndicator: true
+      ringBufferSizeInClosedState: 10
+      ringBufferSizeInHalfOpenState: 3
+      waitDurationInOpenState: 10s
+      failureRateThreshold: 5
+      eventConsumerBufferSize: 2
+#      recordFailurePredicate: io.github.robwin.exception.RecordFailurePredicate
+resilience4j.retry:
+  instances:
+    backendA:
+      maxRetryAttempts: 3
+      waitDuration: 10s
+      enableExponentialBackoff: true
+      exponentialBackoffMultiplier: 2
+      retryExceptions:
+        - com.learn.demo.resilience.ResilienceException
+        - org.springframework.web.client.HttpServerErrorException
+      ignoreExceptions:
+#        - com.learn.demo.resilience.ResilienceException
+        - java.io.IOException
+
+    backendB:
+      maxRetryAttempts: 3
+      waitDuration: 10s
+      retryExceptions:
+#        - com.learn.demo.resilience.ResilienceException
+      ignoreExceptions:
+        - com.learn.demo.resilience.ResilienceException
+        - java.io.IOException
+
+
+resilience4j.bulkhead:
+  instances:
+    backendA:
+      maxConcurrentCall: 10
+      maxWaitDuration: 20ms
+    backendB:
+      maxWaitDuration: 10ms
+      maxConcurrentCall: 20
+
+resilience4j.thread-pool-bulkhead:
+  instances:
+    backendC:
+      threadPoolProperties:
+        maxThreadPoolSize: 1
+        coreThreadPoolSize: 1
+        queueCapacity: 1
+
+resilience4j.ratelimiter:
+  instances:
+    backendA:
+      limitForPeriod: 10
+      limitRefreshPeriod: 10s
+      timeoutDuration: 0
+      registerHealthIndicator: true
+      eventConsumerBufferSize: 100
+    backendB:
+      limitForPeriod: 6
+      limitRefreshPeriod: 500ms
+      timeoutDuration: 3s
+server:
+  port: 9090
