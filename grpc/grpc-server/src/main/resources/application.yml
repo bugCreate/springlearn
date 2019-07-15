@@ -1,0 +1,6 @@
+server:
+  port: 7070
+id: ${ID:backendA}
+grpc:
+  port: 7575
+  enable-reflection: true
