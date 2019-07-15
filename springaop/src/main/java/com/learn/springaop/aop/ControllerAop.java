@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
  **/
 @ControllerAdvice
 public class ControllerAop {
-    
+
     @ExceptionHandler(AdviceException.class)
     @ResponseBody
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
